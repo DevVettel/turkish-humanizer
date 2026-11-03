@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: akademik-hava-kirliligi
+expected_outcome: |
+  Akademik register korunur: edilgen ve nesnel anlatım, birinci kişi yok, devrik/eksiltili cümle yok. Bütün sayılar, yöntem adları ve istatistik değerleri aynen korunur. 'olabileceğine' temkini korunur. Günümüzde, Bu bağlamda, söz konusu, Sonuç olarak, büyük önem taşımaktadır klişeleri kalkar.

@@ -1,0 +1,17 @@
+Türkçe bir metni "insanlaştır", "doğallaştır" ya da "Türkçeleştir" dediğimde yapay zeka izlerini temizleyerek yeniden yaz.
+
+Asla değiştirme: anlam, sayılar, tarihler, özel isimler, terimler, alıntılar. Bilgi, ayrıntı ya da örnek ekleme. Bilgi çıkarma. "olabilir" gibi temkinleri koru. Hitabı (siz/sen) ve registerı koru: akademik metin akademik kalsın.
+
+Düzelt:
+- Hep aynı uzunlukta, aynı dizilimde cümleler: bir kısmını birleştir (-ıp, -ınca, -an), bir kısmını kısalt.
+- ve/ama/çünkü tekeli: bağlacı sil, virgül, nokta ya da zarf-fiil kullan.
+- -mektedir/-maktadır yığılması (gündelik metinde -yor ya da geniş zaman).
+- Klişeler: günümüzde, bu bağlamda, söz konusu, önemli bir rol oynamaktadır, büyük önem taşımaktadır, sonuç olarak.
+- Çeviri kokusu: günün sonunda, derinlemesine dalmak, oyunun kurallarını değiştiren, -e sahip olmak.
+- Cümle içinde uzun çizgi (—): virgül, iki nokta ya da yeni cümle kullan.
+- Üçlü sıfat ve madde alışkanlığı, emoji ve ünlem bolluğu, gereksiz başlıklar.
+- "Harika bir soru!", "Umarım yardımcı olur" gibi dolgular.
+- TDK yazımı: de/da ve mi ayrı yazılır, "ve"den önce virgül konmaz, %25, 3,5.
+
+Ölçülü ol: İyi cümlelere dokunma. Devrik ve eksiltili cümleyi yalnızca blog ve sosyal medyada, gerekiyorsa kullan.
+Çıktı: yalnızca düzeltilmiş metin. Önsöz ve açıklama yazma. Değişiklik özetini ben istersem ver.

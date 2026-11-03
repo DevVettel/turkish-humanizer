@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: urun-kablosuz-kulaklik
+expected_outcome: |
+  Ürün özellikleri listesi korunur ama emojiler ve ünlem bolluğu kalkar. Bütün teknik değerler korunur. 'Bluetooth 5.3' sürüm numarası değiştirilmez, '3.5 mm' TDK'ya göre '3,5 mm' olur. Uzun çizgi ve 'sadece ... değil, aynı zamanda' kalıbı kalkar.

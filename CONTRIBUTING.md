@@ -54,12 +54,23 @@ Bir maddenin yanlış olduğunu bulursanız düzeltin ve PR açıklamasında kay
 - Gerçek kişileri ve şirketleri örnek metinlerde kullanmayın. Kurgusal adlar seçin.
 - Gerçek bir yapay zeka çıktısını örnek olarak kullanacaksanız kişisel ve gizli bilgilerden arındırın.
 
+## dist/ klasörü
+
+`dist/` altındaki zip ve tek dosya sürümü skill dosyalarından üretilir. Skill'de bir şey değiştirdiyseniz PR'dan önce şunu çalıştırın:
+
+```bash
+python3 scripts/tek-dosya-olustur.py
+```
+
+`dist/kisa-talimat.txt` elle yazılır. SKILL.md'deki temel kuralları değiştirdiyseniz bu metni de güncelleyin (ChatGPT'nin talimat sınırı nedeniyle en çok 1.500 karakter).
+
 ## Pull request kontrol listesi
 
 - [ ] Yeni örüntü şablona uygun, altı alan da dolu
 - [ ] Dizine satır eklendi
 - [ ] "Sonra" örneği anlamı, sayıları ve özel isimleri koruyor
 - [ ] Örnekler özgün
+- [ ] Skill değiştiyse `dist/` yeniden üretildi
 - [ ] Kendi yazdığınız açıklamalarda cümle içinde uzun çizgi (—) yok 🙂
 
 ## Test
