@@ -1,0 +1,5 @@
+# skill-creator test çalışma alanı (büyük, yerel çıktı)
+turkish-humanizer-workspace/
+*.skill
+.DS_Store
+__pycache__/
