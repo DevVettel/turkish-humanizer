@@ -61,7 +61,7 @@ Skill'i bir kez yüklemeniz yeterli. Masaüstü ve mobil uygulamada da çalış�
 ### Claude Code
 
 ```bash
-git clone https://github.com/<kullanici>/turkish-humanizer.git
+git clone https://github.com/DevVettel/turkish-humanizer.git
 cp -r turkish-humanizer/turkish-humanizer ~/.claude/skills/
 ```
 
