@@ -38,6 +38,7 @@ Satır başındaki diyalog çizgisine dokunmayın.
 - **Kurum ve kuruluş adlarına gelen ekler ayrılmaz** (TDK): *Türk Dil Kurumuna, İstanbul Üniversitesinde*. Kısaltması kesme alır: *İÜ'de*.
 - **Yapım ekleri ve çoğul eki ayrılmaz** (TDK): *Türkçe, İstanbullu, Avrupalılar*.
 - Kısaltmaya gelen ek okunuşa uyar (TDK): *TDK'ye* ("te-de-ke"), *NATO'ya*, *ABD'de* ("a-be-de").
+- Yabancı özel adlara ve Türkçeleşmemiş terimlere gelen ek de yazılışa değil okunuşa uyar (yerleşik uygulama): *Slack'te*, *cache'i*, *Chrome'u*. Okunuşu kişiden kişiye değişen sözcüklerde metnin kendi içinde tutarlı olmasına bakın.
 
 ## 6. Büyük harf
 
@@ -54,6 +55,7 @@ Satır başındaki diyalog çizgisine dokunmayın.
 - Ondalık ayırıcı virgül, binlik ayırıcı noktadır (TDK): *3.5* → *3,5*; *1,200,000* → *1.200.000*. (*"1,5"* gibi tek başına duran bir sayının ondalık mı binlik mi olduğu bağlamdan anlaşılmıyorsa dokunmayın.)
 - Sıra sayısı ya *5.* ya *5'inci* olur, ikisi bir arada olmaz (TDK).
 - Birden çok sözcüklü sayılar ayrı yazılır (TDK): *on beş*.
+- Saat ve dakika arasına nokta konur (TDK): *14.30*, *09.15'te*. *14:30* yazımı dijital metinlerde çok yaygındır. Yalnızca akademik ve resmi metinde düzeltin, tabloya, program çıktısına ve ekran görüntüsünden aktarılan değere dokunmayın. Saate gelen ek okunuşa uyar: *17.30'da* (otuzda), *09.15'te* (on beşte).
 
 ## 8. Sık yazım hataları
 

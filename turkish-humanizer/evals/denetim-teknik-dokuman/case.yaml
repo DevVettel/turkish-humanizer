@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: denetim-teknik-dokuman
+expected_outcome: |
+  Metin yeniden yazılmaz. Örüntü kimlikleri ve metinden alıntılarla bir denetim raporu verilir: uzun çizgi, -mektedir yığılması, kalın etiketli maddeler, okunuşa uymayan ekler (Redis'de, Cache'ı) ve açılış/kapanış dolguları yer alır. Metni kimin yazdığı hakkında hüküm verilmez.

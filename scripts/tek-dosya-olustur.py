@@ -52,7 +52,7 @@ def main():
     with zipfile.ZipFile(z, "w", zipfile.ZIP_DEFLATED) as zf:
         for f in sorted(SKILL.rglob("*")):
             rel = f.relative_to(SKILL)
-            if f.is_file() and rel.parts[0] != "evals" and f.name != ".DS_Store":
+            if f.is_file() and rel.parts[0] != "evals" and f.name != ".DS_Store" and "__pycache__" not in rel.parts:
                 zf.write(f, Path("turkish-humanizer") / rel)
     print(f"{z.relative_to(ROOT)} yazıldı ({z.stat().st_size // 1024} KB)")
 

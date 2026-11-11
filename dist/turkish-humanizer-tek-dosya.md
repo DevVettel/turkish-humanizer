@@ -30,6 +30,7 @@ Bu kurallar üslupla ilgili her karardan önce gelir. Daha "doğal" bir cümle k
 ### 1. Metni tanı
 
 - **Register:** akademik/resmi · iş yazışması · blog/deneme · pazarlama/ürün · sosyal medya. Kararsızsan daha resmi olanı seç. Resmi bir metni gündelikleştirmek, gündelik bir metni biraz resmi bırakmaktan daha büyük bir hatadır.
+- **Kullanıcının kendi sesi:** Kullanıcı kendi yazdığı bir örnek verdiyse ya da metnin bir bölümü belirgin biçimde onun elinden çıkmışsa ölçün odur. Cümle uzunluğu, bağlaç tercihi, hitap ve yazım alışkanlıkları için bu dosyadaki genel önerilerden önce o örneğe bak.
 - **Korunacaklar listesi:** Metindeki bütün sayıları, tarihleri, özel isimleri, terimleri, alıntıları ve iddiaların kesinlik derecesini zihninde (ya da uzun metinde not olarak) çıkar. Son adımda bu listeyle karşılaştıracaksın.
 
 ### 2. Örüntüleri bul
@@ -52,13 +53,21 @@ Gerektiğinde şu dosyalara uzan:
 
 ### 4. Denetle
 
-Teslim etmeden önce yeni metni korunacaklar listesiyle karşılaştır:
+Önce **anlam.** Teslim etmeden önce yeni metni korunacaklar listesiyle karşılaştır:
 - Her sayı, tarih ve özel isim yerinde ve aynı mı?
 - Her iddia aynı kesinlikte mi? Kaynakta olmayan bir özne, gerekçe ya da sonuç eklendi mi?
 - Silinen her şey gerçekten boş muydu?
 - Register ve hitap aynı mı?
 
 Bir şüphe varsa kaynaktaki hâline dön. Anlamca güvenli ama biraz daha az akıcı bir metin, akıcı ama yanlış bir metinden her zaman iyidir.
+
+Sonra **kendi izin.** Bir kalıbı silerken yerine yenisini koymak en sık yapılan hatadır. Çıktıyı `references/ai-oruntuleri.md` dosyasındaki "Aşırı düzeltme" bölümüyle (ASI-01 ile ASI-05 arası) oku:
+- **Silme testi:** Metne senin eklediğin her bağlacı, söylem sözcüğünü ("aslında", "açıkçası", "yani") ve devrik cümleyi tek tek sil. Anlamdan ve tondan bir şey eksilmiyorsa geri koyma.
+- Sildiğin kalıbın yerine aynı iskeletin başka bir biçimini kurdun mu ("sadece X değil" yerine "X'ten çok Y")?
+- Kaynakta olmayan bir samimiyet, anı ya da okura seslenme ekledin mi?
+- Yaşayan bir sözcüğü ya da terimi "daha Türkçe" olsun diye değiştirdin mi?
+
+Kod çalıştırabiliyorsan ve metin uzunsa `scripts/tara.py` ikinci bir göz olur: `python3 scripts/tara.py yeni.md --kaynak eski.md --register is` komutu yeni metinde kalan sayılabilir örüntüleri listeler, kaynaktaki sayıların, adreslerin, özel adların ve temkin ifadelerinin yerinde olup olmadığını da denetler. Script yalnızca sözcük düzeyinde bakar. Çıktısı bir aday listesidir, senin okumanın yerini tutmaz ve bulduğu her şeyi düzeltmek zorunda değilsin.
 
 ## Çıktı
 
@@ -78,10 +87,36 @@ Varsayılan olarak **yalnızca düzeltilmiş metni** ver: önsöz yok, "İşte d
 - Dokunulmayanlar: "1,500" (binlik mi ondalık mı belirsiz).
 ```
 
+## Yalnızca denetim
+
+Kullanıcı metnin yeniden yazılmasını değil incelenmesini istiyorsa ("yapay zeka gibi mi duruyor", "nerelerinde iz var", "denetle", "sadece sorunları göster") **metni yeniden yazma.** 1. ve 2. adımı uygula, bulduklarını raporla:
+
+```
+**Denetim** (register: iş yazışması)
+
+Belirgin izler
+- NOK-01: 3 yerde cümle içi uzun çizgi. "…tek bir konu konuşuldu — bütçe."
+- YAPI-03: 7 cümlenin 6'sı "-mektedir" ile bitiyor.
+
+Daha hafif olanlar
+- SOZ-02: "Bu bağlamda" (2. paragraf), "söz konusu" (3. paragraf).
+
+Bu registerda olağan, dokunmazdım
+- "tarafından" (1 kez, kurum adıyla).
+```
+
+- Her bulguyu örüntü kimliğiyle ve metinden kısa bir alıntıyla ver. Alıntısız genel yargı ("metin biraz resmi") işe yaramaz.
+- Önem sırasına koy: önce yapı ve çeviri kokusu, sonra sözcük klişeleri, en sonda yazım ve noktalama.
+- "Dokunma" satırına göre olağan saydığın kullanımları ayrı listele. Kullanıcı neye dokunulmayacağını da görmek ister.
+- Metni kimin yazdığı hakkında hüküm verme. "Bu metni yapay zeka yazmış" ya da "%80 yapay zeka" gibi bir sonuca bu yöntemle varılamaz. Söyleyebileceğin, metinde hangi örüntülerin bulunduğudur. İnsanlar da bu kalıplarla yazar.
+- Metin temizse bunu söyle, bulgu üretmek için zorlama.
+- Kod çalıştırabiliyorsan `python3 scripts/tara.py metin.md` sayımları çıkarır. Raporu yine sen yazarsın: Script yapıyı ve anlamı okuyamaz.
+
 ## Özel durumlar
 
 - **Metin zaten doğalsa** küçük düzeltmelerle (yazım, noktalama) yetin ve bunu bir cümleyle söyle. Yapacak bir şey yokken değişiklik üretme.
 - **Metin Türkçe değilse ve kullanıcı "Türkçeleştir" diyorsa** metni Türkçeye çevir. Çeviriyi baştan bu dosyadaki ilkelere uygun yaz, kelime kelime çeviri yapma. Çeviri olduğunu belirt.
+- **Kullanıcı sıfırdan Türkçe bir metin yazmanı istiyorsa** (bir konu, taslak ya da madde listesi verip "yaz" diyorsa) aynı ilkelerle yaz: Katalogdaki örüntüleri baştan kurma, cümleyi İngilizce düşünüp çevirme. Değişmez kuralların karşılığı burada kullanıcının verdiği bilgilerdir: Vermediği sayıyı, örneği ve iddiayı sen ekleme, eksik olan somut bilgiyi sor ya da metinde açıkça boş bırak.
 - **Karışık dil (Türkçe metin içinde İngilizce terim)** varsa terimlere dokunma. Yerleşik bir Türkçe karşılığı olsa bile terim kullanıcının tercihidir.
 - **Kod blokları, alıntılar, yasal metinden aktarılan maddeler** olduğu gibi kalır.
 - **Uzun metinlerde** paragraf paragraf ilerle. Her paragraftan sonra korunacaklar listesini kontrol et.
@@ -89,7 +124,7 @@ Varsayılan olarak **yalnızca düzeltilmiş metni** ver: önsöz yok, "İşte d
 
 ## Örnekler
 
-`examples/` klasöründe beş metin türü için (blog, e-posta, akademik paragraf, ürün açıklaması, LinkedIn gönderisi) tam önce/sonra çiftleri var. Her dosya hangi örüntülerin düzeltildiğini ve nelerin bilinçli olarak korunduğunu da gösterir. Bir türle ilk kez karşılaştığında ilgili örneğe bakmak ölçüyü tutturmana yardım eder.
+`examples/` klasöründe altı metin türü için (blog, e-posta, akademik paragraf, ürün açıklaması, LinkedIn gönderisi, teknik doküman) tam önce/sonra çiftleri var. Her dosya hangi örüntülerin düzeltildiğini ve nelerin bilinçli olarak korunduğunu da gösterir. Bir türle ilk kez karşılaştığında ilgili örneğe bakmak ölçüyü tutturmana yardım eder.
 
 
 ---
@@ -113,6 +148,7 @@ Bu dosya, Türkçe metinlerde yapay zeka izi bırakan örüntülerin kataloğudu
 | `BIC` | Biçim ve düzen (başlık, madde, kalın yazı) |
 | `DOL` | Açılış ve kapanış dolguları |
 | `YAZ` | Yazım hataları |
+| `ASI` | Aşırı düzeltme (düzeltirken bırakılan yeni izler) |
 
 ### Dizin
 
@@ -124,21 +160,26 @@ Bu dosya, Türkçe metinlerde yapay zeka izi bırakan örüntülerin kataloğudu
 - [YAPI-06 "Sadece X değil, aynı zamanda Y" kalıbı](#yapi-06)
 - [YAPI-07 Kendi sorup kendi cevaplama](#yapi-07)
 - [YAPI-08 Her paragrafı özet cümlesiyle bitirme](#yapi-08)
+- [YAPI-09 Yarık cümle ve arkadan eklenen açıklama](#yapi-09)
 - [SOZ-01 "Önemli bir rol oynamaktadır" ailesi](#soz-01)
 - [SOZ-02 Geçiş ve bağlam klişeleri](#soz-02)
 - [SOZ-03 Pekiştirme şişirmesi](#soz-03)
 - [SOZ-04 "olarak" ve "-mekte olup" fazlalığı](#soz-04)
 - [SOZ-05 "Bu durum" / "Bu da" ile açılış](#soz-05)
 - [SOZ-06 Gösterişli mecaz öbekleri](#soz-06)
+- [SOZ-07 Adlaştırma zinciri ve boş yardımcı fiil](#soz-07)
 - [CEV-01 Çeviri deyimler](#cev-01)
 - [CEV-02 "-e sahip olmak" fazlalığı](#cev-02)
 - [CEV-03 "tarafından" ve "için" yığılması](#cev-03)
 - [CEV-04 Gereksiz iyelik zamiri ve "bir"](#cev-04)
+- [CEV-05 "bir şekilde" zarfları](#cev-05)
+- [CEV-06 Okunuşa uymayan ek](#cev-06)
 - [NOK-01 Cümle içinde uzun çizgi (—)](#nok-01)
 - [NOK-02 "ve"den önce virgül](#nok-02)
 - [NOK-03 İngilizce sayı ve yüzde biçimi](#nok-03)
 - [NOK-04 Ünlem ve emoji bolluğu](#nok-04)
 - [BIC-01 Gereksiz başlık, madde işareti ve kalın yazı](#bic-01)
+- [BIC-02 Kalın etiketli madde](#bic-02)
 - [DOL-01 Açılış dolguları](#dol-01)
 - [DOL-02 Kapanış dolguları](#dol-02)
 - [YAZ-01 Bağlaç de/da](#yaz-01)
@@ -146,6 +187,12 @@ Bu dosya, Türkçe metinlerde yapay zeka izi bırakan örüntülerin kataloğudu
 - [YAZ-03 Soru eki mi](#yaz-03)
 - [YAZ-04 Kesme işareti](#yaz-04)
 - [YAZ-05 Büyük harf](#yaz-05)
+- [YAZ-06 Sık yazım hataları](#yaz-06)
+- [ASI-01 Yedek sözcük tiki](#asi-01)
+- [ASI-02 Kılık değiştiren kalıp](#asi-02)
+- [ASI-03 Sahte samimiyet](#asi-03)
+- [ASI-04 Arı Türkçe merakı](#asi-04)
+- [ASI-05 Aşırı gömme](#asi-05)
 
 ---
 
@@ -230,6 +277,16 @@ Bu dosya, Türkçe metinlerde yapay zeka izi bırakan örüntülerin kataloğudu
 - **Önce:** *Kargo süresi 5 günden 2 güne indi, iade oranı %8'den %3'e düştü. Bu da müşteri memnuniyetinin ne kadar önemli olduğunu açıkça göstermektedir.*
 - **Sonra:** *Kargo süresi 5 günden 2 güne indi, iade oranı %8'den %3'e düştü.*
 
+<a id="yapi-09"></a>
+#### YAPI-09 · Yarık cümle ve arkadan eklenen açıklama
+
+- **Belirti:** "Bunu mümkün kılan şey ...", "Asıl önemli olan şey ...-dır", "Dikkat çeken nokta şu ki ..." gibi vurguyu yapay bir özneyle kuran cümleler. Bir de adı söyleyip niteliğini ardından ayrı cümleyle ekleyen çiftler: "Bir rapor hazırladık. Bu rapor geçen yılın satışlarını gösteriyor."
+- **Neden yapay:** İkisi de İngilizce cümle sırasının izidir (*what makes this possible is ...*, *a report that shows ...*). Türkçe vurguyu yüklemin hemen önüne gelen öğeyle verir, niteleyeni de adın önüne koyar.
+- **Ne yapmalı:** Vurgulanan öğeyi yüklemin önüne alın, "şey"i atın. Arkadan gelen açıklamayı sıfat-fiille adın önüne taşıyın. Araçlar için bkz. `cumle-turleri.md`.
+- **Dokunma:** Gerçek bir karşıtlık kuruluyorsa ("Bizi geciktiren bütçe değil, onay süreciydi."). Akademik metinde tanım cümleleri.
+- **Önce:** *Teslimatı hızlandıran şey yeni depo oldu. Bir takip ekranı da ekledik. Bu ekran siparişin nerede olduğunu gösteriyor.*
+- **Sonra:** *Teslimatı yeni depo hızlandırdı. Siparişin nerede olduğunu gösteren bir takip ekranı da ekledik.*
+
 ---
 
 <a id="soz-01"></a>
@@ -292,6 +349,16 @@ Bu dosya, Türkçe metinlerde yapay zeka izi bırakan örüntülerin kataloğudu
 - **Önce:** *Bu iş birliği, eğitimde dijital dönüşüm yolculuğumuza yeni bir boyut kazandıracak.*
 - **Sonra:** *Bu iş birliğiyle eğitimde dijitalleşme çalışmalarımızı genişleteceğiz.*
 
+<a id="soz-07"></a>
+#### SOZ-07 · Adlaştırma zinciri ve boş yardımcı fiil
+
+- **Belirti:** Eylemin ada çevrilip başka bir fiile yüklendiği zincirler: "yedeklenmesinin sağlanması gerekmektedir", "incelemesinin yapılması", "ödemenin gerçekleştirilmesi". Asıl işi ad taşır, "gerçekleştirmek", "sağlamak", "yapmak", "icra etmek" yalnızca çekim eki taşır.
+- **Neden yapay:** Bürokratik yazının alışkanlığıdır ve modeller "resmi" görünmek için buna yaslanır. Okur eylemi bulmak için zinciri sondan başa çözmek zorunda kalır.
+- **Ne yapmalı:** Addaki eylemi yeniden fiil yapın ve doğrudan çekimleyin: "ödemenin gerçekleştirilmesi" → "ödemek", "yapılması gerekmektedir" → "yapılmalı". Eylemi kimin yaptığı kaynakta belli değilse edilgen bırakın, özne uydurmayın.
+- **Dokunma:** Yerleşik birleşik fiiller ("katkıda bulunmak", "yardım etmek", "karar vermek") boş fiil değildir. Mevzuat ve sözleşme dilinde zincir kalıbın parçası olabilir.
+- **Önce:** *Verilerin haftalık olarak yedeklenmesinin sağlanması gerekmektedir. Geçiş işlemi cumartesi günü gerçekleştirilecektir.*
+- **Sonra:** *Veriler haftada bir yedeklenmeli. Geçiş cumartesi günü yapılacak.*
+
 ---
 
 <a id="cev-01"></a>
@@ -333,6 +400,26 @@ Bu dosya, Türkçe metinlerde yapay zeka izi bırakan örüntülerin kataloğudu
 - **Dokunma:** Karşıtlık vurgusu ("Bizim ekibimiz değil, onların ekibi yaptı.").
 - **Önce:** *Bizim ekibimiz sizin projeniz için harika bir çözüm sunan bir yaklaşım geliştirdi.*
 - **Sonra:** *Ekibimiz projeniz için yeni bir yaklaşım geliştirdi.* ("harika" bilgi taşımıyor. "çözüm sunan" ise "yaklaşım"ın tekrarı.)
+
+<a id="cev-05"></a>
+#### CEV-05 · "bir şekilde" zarfları
+
+- **Belirti:** "hızlı bir şekilde", "etkili bir biçimde", "sorunsuz bir şekilde", "güvenli bir şekilde", "detaylı bir şekilde".
+- **Neden yapay:** İngilizce *-ly* zarflarının sözcük sözcük karşılığıdır. Türkçede sıfat çoğu zaman olduğu gibi zarf olur ("hızlı yürüdü") ya da "-ca/-ce" ekini alır.
+- **Ne yapmalı:** "bir şekilde"yi silip sıfatı yalın bırakın ya da "-ca/-ce", "-arak" kullanın. Zarf bilgi taşımıyorsa ("sorunsuz bir şekilde çalışır") tamamen atın.
+- **Dokunma:** Belirsizlik bildiren gerçek kullanım ("bir şekilde hallettik", "öyle ya da böyle" anlamında).
+- **Önce:** *Dosyalarınızı güvenli bir şekilde saklar, ekibinizle hızlı bir şekilde paylaşmanıza olanak tanır.*
+- **Sonra:** *Dosyalarınızı güvenle saklar, ekibinizle hızlıca paylaşmanızı sağlar.*
+
+<a id="cev-06"></a>
+#### CEV-06 · Okunuşa uymayan ek
+
+- **Belirti:** Yabancı sözcüğe ya da kısaltmaya gelen ekin okunuşa değil yazılışa göre seçilmesi: "cache'ı", "Slack'de", "Chrome'yi", "TDK'ya".
+- **Neden yapay:** Model eki sözcüğün son harfine bakarak seçer. Türkçe yazan biri sözcüğü nasıl okuyorsa eki ona göre getirir.
+- **Ne yapmalı:** Eki okunuşa uydurun: "cache'i" (keş), "Slack'te" (silek), "Chrome'u" (krom). Kısaltmalarda kural TDK'dandır, yabancı sözcüklerde yerleşik uygulamadır. Bkz. `noktalama.md` §5. Terimin kendisine dokunmayın.
+- **Dokunma:** Okunuşu kişiden kişiye değişen sözcükler ("SQL": es-kü-el ya da sikıl). Metindeki tercih tutarlıysa kalır.
+- **Önce:** *Yayına almadan önce cache'ı temizleyip durumu Slack'de duyurduk.*
+- **Sonra:** *Yayına almadan önce cache'i temizleyip durumu Slack'te duyurduk.*
 
 ---
 
@@ -394,6 +481,20 @@ Bu dosya, Türkçe metinlerde yapay zeka izi bırakan örüntülerin kataloğudu
   - Katılım önemlidir.
   ```
 - **Sonra:** *Perşembe günü bütçe planlamasını konuşmak için toplanıyoruz. Katılımınız önemli.*
+
+<a id="bic-02"></a>
+#### BIC-02 · Kalın etiketli madde
+
+- **Belirti:** Her maddenin kalın bir etiket ve iki noktayla başladığı listeler: "**Hız:** Sayfalar daha çabuk açılır.", "**Güvenlik:** Veriler şifrelenir." Çoğu zaman etiket, ardından gelen cümlenin bir sözcüğünü tekrar eder.
+- **Neden yapay:** Sohbet modellerinin en tanıdık cevap şablonudur. Düz bir paragrafla söylenebilecek iki üç bilgiyi sunum slaytına çevirir.
+- **Ne yapmalı:** Madde sayısı azsa düzyazıya çevirin. Liste gerçekten gerekiyorsa etiketi kaldırıp maddeyi yalın bir cümle olarak yazın. Etiketteki bilgi cümlede yoksa cümleye taşıyın, kaybetmeyin.
+- **Dokunma:** Sözlükçe, özellik tablosu, SSS gibi etiketin gerçekten aranacak bir başlık olduğu listeler. Kullanıcının şablonu.
+- **Önce:**
+  ```
+  - **Hız:** Yeni sürümde sayfalar daha hızlı açılır.
+  - **Güvenlik:** Bütün veriler şifrelenerek saklanır.
+  ```
+- **Sonra:** *Yeni sürümde sayfalar daha hızlı açılır, bütün veriler de şifrelenerek saklanır.*
 
 ---
 
@@ -464,6 +565,77 @@ Bu dosya, Türkçe metinlerde yapay zeka izi bırakan örüntülerin kataloğudu
 - **Dokunma:** Başlıkların büyük harf düzeni (metin içinde tutarlıysa).
 - **Önce:** *Fiyatlar Kasım ayında 500 Türk Lirası'na çıkacak. Üç seçenek var: Aylık, yıllık ve ömür boyu.*
 - **Sonra:** *Fiyatlar kasım ayında 500 Türk lirasına çıkacak. Üç seçenek var: aylık, yıllık ve ömür boyu.*
+
+<a id="yaz-06"></a>
+#### YAZ-06 · Sık yazım hataları
+
+- **Belirti:** "birşey", "herşey", "hiç bir", "bir çok", "bir kaç", "pekçok", "yada", "yanlız".
+- **Neden yapay:** Yapay zekadan çok insan hatasıdır, ama metin düzeltilirken yakalanmalıdır.
+- **Ne yapmalı:** Doğru yazımı kullanın: bir şey, her şey, hiçbir, birçok, birkaç, pek çok, ya da, yalnız. Liste için bkz. `noktalama.md` §8.
+- **Dokunma:** Alıntılar ve kullanıcının olduğu gibi aktardığı mesajlar.
+- **Önce:** *Bir çok kullanıcı herşeyin yolunda olduğunu yada hiç bir sorun yaşamadığını söyledi.*
+- **Sonra:** *Birçok kullanıcı her şeyin yolunda olduğunu ya da hiçbir sorun yaşamadığını söyledi.*
+
+---
+
+### Aşırı düzeltme
+
+Bu bölümdeki örüntüler kaynak metinde değil, **düzeltilmiş metinde** aranır. Bir izi silerken yerine yenisini koymak, izi bırakmaktan daha kötüdür: Metin hem değişmiş hem de yine yapay kalmış olur. Yeniden yazımı bitirdikten sonra çıktıyı bu beş soruyla okuyun. Buradaki bloklar önce/sonra yerine kaynak, aşırı düzeltme ve yerinde düzeltme üçlüsünü gösterir.
+
+<a id="asi-01"></a>
+#### ASI-01 · Yedek sözcük tiki
+
+- **Belirti:** Silinen klişelerin yerine her seferinde aynı "doğal" sözcük geliyor: "aslında", "açıkçası", "doğrusu", "işin özü", "gerçekten".
+- **Neden yapay:** Yasak listesiyle çalışmanın yan etkisidir. Boşalan yere bir şey koyma refleksi, eski tikin yerine yenisini üretir.
+- **Ne yapmalı:** Klişeyi sildiğiniz yere hiçbir şey koymadan cümleyi okuyun. Ayakta duruyorsa öyle bırakın.
+- **Dokunma:** Kaynak metinde zaten bulunan ve anlam taşıyan söylem sözcükleri.
+- **Kaynak:** *Bu bağlamda, yeni panel son derece hızlıdır. Sonuç olarak, kullanıcılar memnundur.*
+- **Aşırı düzeltme:** *Aslında yeni panel gerçekten hızlı. Açıkçası kullanıcılar da memnun.*
+- **Yerinde düzeltme:** *Yeni panel hızlı, kullanıcılar da memnun.*
+
+<a id="asi-02"></a>
+#### ASI-02 · Kılık değiştiren kalıp
+
+- **Belirti:** Bir kalıp silinirken aynı iskeletin başka bir biçimi kuruluyor: "sadece X değil, aynı zamanda Y" yerine "X değil, Y", "X'in ötesinde Y", "X'ten çok Y". Uzun çizgi yerine her yere iki nokta ya da üç nokta konması da aynı hatadır.
+- **Neden yapay:** Sözcükler değişir, cümlenin hareketi aynı kalır. Okur kalıbı sözcüklerinden değil ritminden tanır.
+- **Ne yapmalı:** Kalıbın arkasındaki bilgiyi çıkarın ve düz söyleyin. Karşıtlığın olumsuz yarısı bilgi taşımıyorsa atın.
+- **Dokunma:** Kaynakta gerçek bir yanlış anlamayı düzelten karşıtlık (bkz. YAPI-06, Dokunma).
+- **Kaynak:** *Bu sadece bir takvim uygulaması değil, aynı zamanda bir planlama asistanı.*
+- **Aşırı düzeltme:** *Bu bir takvim uygulamasından çok, bir planlama asistanı.*
+- **Yerinde düzeltme:** *Uygulama takvim tutmanın yanında planlamanıza da yardım ediyor.*
+
+<a id="asi-03"></a>
+#### ASI-03 · Sahte samimiyet
+
+- **Belirti:** Metni "insan" göstermek için eklenen ve kaynakta olmayan öğeler: uydurma bir anı, "itiraf edeyim", "hepimizin başına gelmiştir", okura dönük sohbet cümleleri, konuşma dili parçacıkları ("yani", "hani", "işte").
+- **Neden yapay:** Bilgi eklemektir, değişmez kuralları çiğner. Kurumsal ya da teknik bir metinde registerı da bozar.
+- **Ne yapmalı:** Eklediğiniz her sözcüğü silip okuyun. Anlamdan ve tondan bir şey eksilmiyorsa geri koymayın. Kaynakta olmayan hiçbir deneyim, duygu ya da ayrıntı yazmayın.
+- **Dokunma:** Kaynak metindeki gerçek kişisel anlatım. Yazarın kendi anısı ve sesi korunur.
+- **Kaynak:** *Yedekleme işlemi her gece 02.00'de otomatik olarak başlamaktadır.*
+- **Aşırı düzeltme:** *Hepimiz bir gün dosyalarımızı kaybetmişizdir. İşte bu yüzden yedekleme her gece 02.00'de kendiliğinden başlıyor.*
+- **Yerinde düzeltme:** *Yedekleme her gece 02.00'de kendiliğinden başlar.*
+
+<a id="asi-04"></a>
+#### ASI-04 · Arı Türkçe merakı
+
+- **Belirti:** Gündelik ve mesleki dilde yaşayan yabancı kökenli sözcüklerin zorlama karşılıklarla değiştirilmesi: "performans" → "başarım", "strateji" → "izlem", "e-posta" → "e-ileti". Meslek içinde İngilizcesiyle kullanılan terimlerin çevrilmesi: "pull request" → "çekme isteği", "middleware" → "ara katman yazılımı".
+- **Neden yapay:** Bu skill bir dil arılaştırma aracı değildir. Hedef, okurun yadırgamadığı Türkçedir ve okur "performans" sözcüğünü yadırgamaz. Terim değiştirmek ayrıca değişmez kurallara aykırıdır.
+- **Ne yapmalı:** Sözcük seçimine yalnızca çeviri kokan **kalıplarda** (bkz. `CEV` blokları) dokunun. Tek tek sözcüklerin kökenine bakmayın.
+- **Dokunma:** Kullanıcı açıkça öz Türkçe bir üslup istiyorsa.
+- **Kaynak:** *Yeni strateji, sistemin performansını artırmayı hedeflemektedir.*
+- **Aşırı düzeltme:** *Yeni izlem, dizgenin başarımını artırmayı amaçlıyor.*
+- **Yerinde düzeltme:** *Yeni strateji sistemin performansını artırmayı hedefliyor.*
+
+<a id="asi-05"></a>
+#### ASI-05 · Aşırı gömme
+
+- **Belirti:** Kısa cümleleri birleştirirken bütün bilginin sıfat-fiillerle tek bir adın önüne yığılması. Okur yükleme varana kadar üç dört yan cümleyi aklında tutmak zorunda kalıyor.
+- **Neden yapay:** Tekdüzeliği kırmak için yapılan birleştirmenin dozu kaçmıştır. İngilizce iskeletin tersine dönmüş hâli de Türkçe okuru yorar.
+- **Ne yapmalı:** Bir adın önünde en çok iki yan cümle bırakın. Fazlasını ayrı cümleye bölün.
+- **Dokunma:** Hukuki ve akademik metinde uzun ad öbekleri türün gereği olabilir.
+- **Kaynak:** *Bir araç geliştirdik. Araç faturaları tarıyor. Hataları işaretliyor. Geçen ay yayınladık.*
+- **Aşırı düzeltme:** *Geçen ay yayınladığımız, faturaları tarayan ve hataları işaretleyen, bizim geliştirdiğimiz aracı kullanabilirsiniz.* (Ayrıca "kullanabilirsiniz" kaynakta yok.)
+- **Yerinde düzeltme:** *Faturaları tarayıp hataları işaretleyen bir araç geliştirdik. Geçen ay yayınladık.*
 
 ---
 
@@ -539,11 +711,26 @@ Sütunlar: G = gündelik/blog/sosyal, İ = iş e-postası/ürün metni, A = akad
 - Önce: *Bu yöntem hızlıdır. Bu yöntem ucuzdur. Bu yöntem kolay uygulanır.*
 - Sonra: *Yöntem hem hızlı hem ucuz. Uygulaması da kolay.*
 
+**5. Yarık cümle → vurguyu yüklemin önüne alma**
+- Önce: *Satışları artıran şey ücretsiz kargo oldu.*
+- Sonra: *Satışları ücretsiz kargo artırdı.*
+- (Türkçede vurgu yüklemin hemen önündeki öğededir. "Ücretsiz kargo satışları artırdı." dendiğinde vurgu "satışları"na kayar. Hangisinin vurgulandığını kaynaktan okuyun.)
+
+**6. Ortak eki son yükleme bırakma**
+- Önce: *Sistem hızlıdır ve güvenilirdir.*
+- Sonra: *Sistem hızlı ve güvenilirdir.*
+
+**7. Adlaştırma zinciri → doğrudan çekim**
+- Önce: *Formun doldurulmasının ardından onay işleminin yapılması gerekmektedir.*
+- Sonra: *Form doldurulduktan sonra onaylanmalıdır.*
+
 ### Uyarılar
 
 - Çeşitlilik bir araçtır, hedef değildir. Her cümleyi farklı bir yapıya sokmak da yapay durur. İyi bir insan yazısında cümlelerin çoğu yine kurallı ve orta uzunluktadır, yalnızca aralarına doğal kırılmalar girer.
 - Devrik ve eksiltili cümle, metne "insan" süsü vermek için eklenen kozmetik bir araç olarak kullanılmamalı. Bağlam gerektirmiyorsa kullanmayın.
 - Birleştirme yaparken öznenin kim olduğunu ve zaman ilişkisini koruyun. "-ınca" bir zaman sırası, "-ıp" bir ardışıklık ya da eşzamanlılık, "-arak" bir tarz bildirir. Yanlış zarf-fiil anlamı kaydırır.
+- Sıfat-fiille gömerken bir adın önüne ikiden çok yan cümle yığmayın. Okur yükleme varana kadar hepsini aklında tutmak zorunda kalır. Fazlasını ayrı cümleye bölün (bkz. `ai-oruntuleri.md`, ASI-05).
+- Farklı özneli iki cümleyi "-ıp" ile birleştirmeyin. "-ıp"lı bölümün öznesi ana cümlenin öznesi sayılır: *"Ekip raporu hazırlayıp müdür onayladı."* yanlıştır, *"Ekip raporu hazırladı, müdür onayladı."* doğrudur.
 
 
 ---
@@ -644,6 +831,7 @@ Satır başındaki diyalog çizgisine dokunmayın.
 - **Kurum ve kuruluş adlarına gelen ekler ayrılmaz** (TDK): *Türk Dil Kurumuna, İstanbul Üniversitesinde*. Kısaltması kesme alır: *İÜ'de*.
 - **Yapım ekleri ve çoğul eki ayrılmaz** (TDK): *Türkçe, İstanbullu, Avrupalılar*.
 - Kısaltmaya gelen ek okunuşa uyar (TDK): *TDK'ye* ("te-de-ke"), *NATO'ya*, *ABD'de* ("a-be-de").
+- Yabancı özel adlara ve Türkçeleşmemiş terimlere gelen ek de yazılışa değil okunuşa uyar (yerleşik uygulama): *Slack'te*, *cache'i*, *Chrome'u*. Okunuşu kişiden kişiye değişen sözcüklerde metnin kendi içinde tutarlı olmasına bakın.
 
 ### 6. Büyük harf
 
@@ -660,6 +848,7 @@ Satır başındaki diyalog çizgisine dokunmayın.
 - Ondalık ayırıcı virgül, binlik ayırıcı noktadır (TDK): *3.5* → *3,5*; *1,200,000* → *1.200.000*. (*"1,5"* gibi tek başına duran bir sayının ondalık mı binlik mi olduğu bağlamdan anlaşılmıyorsa dokunmayın.)
 - Sıra sayısı ya *5.* ya *5'inci* olur, ikisi bir arada olmaz (TDK).
 - Birden çok sözcüklü sayılar ayrı yazılır (TDK): *on beş*.
+- Saat ve dakika arasına nokta konur (TDK): *14.30*, *09.15'te*. *14:30* yazımı dijital metinlerde çok yaygındır. Yalnızca akademik ve resmi metinde düzeltin, tabloya, program çıktısına ve ekran görüntüsünden aktarılan değere dokunmayın. Saate gelen ek okunuşa uyar: *17.30'da* (otuzda), *09.15'te* (on beşte).
 
 ### 8. Sık yazım hataları
 

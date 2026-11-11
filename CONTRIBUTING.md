@@ -12,13 +12,14 @@ turkish-humanizer, Türkçe yazan herkesin gözlemleriyle büyüyen bir proje. B
 | [DOĞRULANMADI] etiketli bir kuralı TDK'dan doğrulama | `kaynaklar/*.md` | Orta |
 | Yeni önce/sonra örnek metni | `turkish-humanizer/examples/` | Orta |
 | Yeni test vakası | `turkish-humanizer/evals/` | Orta |
+| Tarayıcıya yeni kural | `turkish-humanizer/scripts/tara.py` ve `tests/` | Orta |
 | SKILL.md davranış değişikliği | `turkish-humanizer/SKILL.md` | Önce issue açın |
 
 ## Yeni örüntü eklemek
 
 1. `ai-oruntuleri.md` dosyasının sonundaki **şablonu** kopyalayın.
 2. Uygun kategoriyi seçin ve o kategorideki sıradaki numarayı verin:
-   `YAPI` yapı · `SOZ` klişe/sözcük · `CEV` çeviri kokusu · `NOK` noktalama · `BIC` biçim · `DOL` dolgu · `YAZ` yazım
+   `YAPI` yapı · `SOZ` klişe/sözcük · `CEV` çeviri kokusu · `NOK` noktalama · `BIC` biçim · `DOL` dolgu · `YAZ` yazım · `ASI` aşırı düzeltme
 3. Bloğu kategorisinin sonuna ekleyin ve dosyanın başındaki **Dizin**e bir satır ekleyin.
 4. Altı alanın hepsini doldurun. **Dokunma** alanı zorunludur. Her örüntünün meşru olduğu bir bağlam vardır, onu düşünmek skill'in aşırıya kaçmasını önler.
 
@@ -29,6 +30,19 @@ turkish-humanizer, Türkçe yazan herkesin gözlemleriyle büyüyen bir proje. B
 - **Örnekleri özgündür.** Bir yerden kopyalanmamış, sizin yazdığınız cümlelerdir.
 - **"Sonra" örneği anlamı korur.** Sayılar, özel isimler ve iddiaların gücü aynı kalır, yeni bilgi eklenmez. İnceleme sırasında en çok buna bakacağız.
 - **Yasak listesi değildir.** "X kullanma" yerine "X şu durumda yapay durur, şu durumda doğaldır" der.
+
+### Aşırı düzeltme örüntüleri (`ASI`)
+
+Skill'in çıktısında tekrar tekrar gördüğünüz bir tik de (her cümleye eklenen bir "aslında", silinen kalıbın yerine kurulan benzeri) bir örüntüdür. Bunlar `ASI` kategorisine girer ve önce/sonra yerine **Kaynak**, **Aşırı düzeltme** ve **Yerinde düzeltme** alanlarını kullanır.
+
+### Tarayıcıya kural eklemek
+
+`tara.py` yalnızca düz metinden güvenle sayılabilen örüntüleri arar. Yeni bir kural eklerken:
+
+- Kural katalogdaki bir bloğun kimliğini taşımalı. Katalogda olmayan bir şeyi script yakalamaz.
+- Desen küçük harfe çevrilmiş metin üzerinde çalışır. Türkçe karakterleri doğrudan yazın.
+- Yanlış alarm, kaçırılan bulgudan daha kötüdür. Emin olmadığınız bir kalıbı eklemeyin.
+- `tests/test_tara.py` dosyasına kuralı yakalayan bir örnek ekleyin. Olağan bir kullanımı yakalamadığını gösteren bir örnek daha iyi olur.
 
 ## Anlam kayması bildirmek
 
@@ -71,11 +85,18 @@ python3 scripts/tek-dosya-olustur.py
 - [ ] "Sonra" örneği anlamı, sayıları ve özel isimleri koruyor
 - [ ] Örnekler özgün
 - [ ] Skill değiştiyse `dist/` yeniden üretildi
+- [ ] `python3 -m unittest discover -s tests` geçiyor
 - [ ] Kendi yazdığınız açıklamalarda cümle içinde uzun çizgi (—) yok 🙂
 
 ## Test
 
 Değişikliğinizin skill'in davranışını nasıl etkilediğini görmek isterseniz `turkish-humanizer/evals/` altındaki test vakalarını kullanabilirsiniz. Bu vakalar `claude plugin eval` formatında yazıldı. Her vaka klasöründe bir `prompt.md`, beklenen sonucu anlatan bir `case.yaml` ve kontrol edilen ölçütleri içeren `graders/` var. Yeni bir vaka eklerken var olan bir klasörü kopyalayabilirsiniz.
+
+`tests/` klasöründeki testler ise yapay zeka gerektirmez. Tarayıcının kurallarını ve katalogdaki her bloğun dizinde yer aldığını denetler:
+
+```bash
+python3 -m unittest discover -s tests
+```
 
 ## Davranış kuralları
 

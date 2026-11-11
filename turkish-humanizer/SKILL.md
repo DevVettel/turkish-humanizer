@@ -1,6 +1,6 @@
 ---
 name: turkish-humanizer
-description: Türkçe metinleri yapay zeka izlerinden arındırıp doğal bir insan yazısına dönüştürür. Anlamı, sayıları, terimleri ve özel isimleri olduğu gibi korur. Kullanıcı "Türkçeleştir", "insanlaştır", "doğallaştır", "yapay zeka gibi durmasın", "daha doğal yaz", "robot gibi olmuş", "AI kokuyor", "humanize" dediğinde ya da bir Türkçe metnin (blog, e-posta, akademik paragraf, ürün açıklaması, LinkedIn gönderisi, rapor) üslubunu düzeltmek, akıcılaştırmak veya ChatGPT/Claude çıktısı gibi durmaktan çıkarmak istediğinde bu skill'i mutlaka kullan. Türkçe bir metni "yeniden yaz", "elden geçir", "redakte et" isteklerinde de kullan. Use for any request to humanize or de-AI Turkish text.
+description: Türkçe metinleri yapay zeka izlerinden arındırıp doğal bir insan yazısına dönüştürür. Anlamı, sayıları, terimleri ve özel isimleri olduğu gibi korur. Kullanıcı "Türkçeleştir", "insanlaştır", "doğallaştır", "yapay zeka gibi durmasın", "daha doğal yaz", "robot gibi olmuş", "AI kokuyor", "humanize" dediğinde ya da bir Türkçe metnin (blog, e-posta, akademik paragraf, ürün açıklaması, LinkedIn gönderisi, rapor) üslubunu düzeltmek, akıcılaştırmak veya ChatGPT/Claude çıktısı gibi durmaktan çıkarmak istediğinde bu skill'i mutlaka kullan. Türkçe bir metni "yeniden yaz", "elden geçir", "redakte et" isteklerinde de, "bu metin yapay zeka gibi mi duruyor", "nerelerinde iz var", "denetle" gibi yeniden yazım istemeyen inceleme isteklerinde de kullan. Use for any request to humanize or de-AI Turkish text.
 ---
 
 # Turkish Humanizer
@@ -22,6 +22,7 @@ Bu kurallar üslupla ilgili her karardan önce gelir. Daha "doğal" bir cümle k
 ### 1. Metni tanı
 
 - **Register:** akademik/resmi · iş yazışması · blog/deneme · pazarlama/ürün · sosyal medya. Kararsızsan daha resmi olanı seç. Resmi bir metni gündelikleştirmek, gündelik bir metni biraz resmi bırakmaktan daha büyük bir hatadır.
+- **Kullanıcının kendi sesi:** Kullanıcı kendi yazdığı bir örnek verdiyse ya da metnin bir bölümü belirgin biçimde onun elinden çıkmışsa ölçün odur. Cümle uzunluğu, bağlaç tercihi, hitap ve yazım alışkanlıkları için bu dosyadaki genel önerilerden önce o örneğe bak.
 - **Korunacaklar listesi:** Metindeki bütün sayıları, tarihleri, özel isimleri, terimleri, alıntıları ve iddiaların kesinlik derecesini zihninde (ya da uzun metinde not olarak) çıkar. Son adımda bu listeyle karşılaştıracaksın.
 
 ### 2. Örüntüleri bul
@@ -44,13 +45,21 @@ Gerektiğinde şu dosyalara uzan:
 
 ### 4. Denetle
 
-Teslim etmeden önce yeni metni korunacaklar listesiyle karşılaştır:
+Önce **anlam.** Teslim etmeden önce yeni metni korunacaklar listesiyle karşılaştır:
 - Her sayı, tarih ve özel isim yerinde ve aynı mı?
 - Her iddia aynı kesinlikte mi? Kaynakta olmayan bir özne, gerekçe ya da sonuç eklendi mi?
 - Silinen her şey gerçekten boş muydu?
 - Register ve hitap aynı mı?
 
 Bir şüphe varsa kaynaktaki hâline dön. Anlamca güvenli ama biraz daha az akıcı bir metin, akıcı ama yanlış bir metinden her zaman iyidir.
+
+Sonra **kendi izin.** Bir kalıbı silerken yerine yenisini koymak en sık yapılan hatadır. Çıktıyı `references/ai-oruntuleri.md` dosyasındaki "Aşırı düzeltme" bölümüyle (ASI-01 ile ASI-05 arası) oku:
+- **Silme testi:** Metne senin eklediğin her bağlacı, söylem sözcüğünü ("aslında", "açıkçası", "yani") ve devrik cümleyi tek tek sil. Anlamdan ve tondan bir şey eksilmiyorsa geri koyma.
+- Sildiğin kalıbın yerine aynı iskeletin başka bir biçimini kurdun mu ("sadece X değil" yerine "X'ten çok Y")?
+- Kaynakta olmayan bir samimiyet, anı ya da okura seslenme ekledin mi?
+- Yaşayan bir sözcüğü ya da terimi "daha Türkçe" olsun diye değiştirdin mi?
+
+Kod çalıştırabiliyorsan ve metin uzunsa `scripts/tara.py` ikinci bir göz olur: `python3 scripts/tara.py yeni.md --kaynak eski.md --register is` komutu yeni metinde kalan sayılabilir örüntüleri listeler, kaynaktaki sayıların, adreslerin, özel adların ve temkin ifadelerinin yerinde olup olmadığını da denetler. Script yalnızca sözcük düzeyinde bakar. Çıktısı bir aday listesidir, senin okumanın yerini tutmaz ve bulduğu her şeyi düzeltmek zorunda değilsin.
 
 ## Çıktı
 
@@ -70,10 +79,36 @@ Varsayılan olarak **yalnızca düzeltilmiş metni** ver: önsöz yok, "İşte d
 - Dokunulmayanlar: "1,500" (binlik mi ondalık mı belirsiz).
 ```
 
+## Yalnızca denetim
+
+Kullanıcı metnin yeniden yazılmasını değil incelenmesini istiyorsa ("yapay zeka gibi mi duruyor", "nerelerinde iz var", "denetle", "sadece sorunları göster") **metni yeniden yazma.** 1. ve 2. adımı uygula, bulduklarını raporla:
+
+```
+**Denetim** (register: iş yazışması)
+
+Belirgin izler
+- NOK-01: 3 yerde cümle içi uzun çizgi. "…tek bir konu konuşuldu — bütçe."
+- YAPI-03: 7 cümlenin 6'sı "-mektedir" ile bitiyor.
+
+Daha hafif olanlar
+- SOZ-02: "Bu bağlamda" (2. paragraf), "söz konusu" (3. paragraf).
+
+Bu registerda olağan, dokunmazdım
+- "tarafından" (1 kez, kurum adıyla).
+```
+
+- Her bulguyu örüntü kimliğiyle ve metinden kısa bir alıntıyla ver. Alıntısız genel yargı ("metin biraz resmi") işe yaramaz.
+- Önem sırasına koy: önce yapı ve çeviri kokusu, sonra sözcük klişeleri, en sonda yazım ve noktalama.
+- "Dokunma" satırına göre olağan saydığın kullanımları ayrı listele. Kullanıcı neye dokunulmayacağını da görmek ister.
+- Metni kimin yazdığı hakkında hüküm verme. "Bu metni yapay zeka yazmış" ya da "%80 yapay zeka" gibi bir sonuca bu yöntemle varılamaz. Söyleyebileceğin, metinde hangi örüntülerin bulunduğudur. İnsanlar da bu kalıplarla yazar.
+- Metin temizse bunu söyle, bulgu üretmek için zorlama.
+- Kod çalıştırabiliyorsan `python3 scripts/tara.py metin.md` sayımları çıkarır. Raporu yine sen yazarsın: Script yapıyı ve anlamı okuyamaz.
+
 ## Özel durumlar
 
 - **Metin zaten doğalsa** küçük düzeltmelerle (yazım, noktalama) yetin ve bunu bir cümleyle söyle. Yapacak bir şey yokken değişiklik üretme.
 - **Metin Türkçe değilse ve kullanıcı "Türkçeleştir" diyorsa** metni Türkçeye çevir. Çeviriyi baştan bu dosyadaki ilkelere uygun yaz, kelime kelime çeviri yapma. Çeviri olduğunu belirt.
+- **Kullanıcı sıfırdan Türkçe bir metin yazmanı istiyorsa** (bir konu, taslak ya da madde listesi verip "yaz" diyorsa) aynı ilkelerle yaz: Katalogdaki örüntüleri baştan kurma, cümleyi İngilizce düşünüp çevirme. Değişmez kuralların karşılığı burada kullanıcının verdiği bilgilerdir: Vermediği sayıyı, örneği ve iddiayı sen ekleme, eksik olan somut bilgiyi sor ya da metinde açıkça boş bırak.
 - **Karışık dil (Türkçe metin içinde İngilizce terim)** varsa terimlere dokunma. Yerleşik bir Türkçe karşılığı olsa bile terim kullanıcının tercihidir.
 - **Kod blokları, alıntılar, yasal metinden aktarılan maddeler** olduğu gibi kalır.
 - **Uzun metinlerde** paragraf paragraf ilerle. Her paragraftan sonra korunacaklar listesini kontrol et.
@@ -81,4 +116,4 @@ Varsayılan olarak **yalnızca düzeltilmiş metni** ver: önsöz yok, "İşte d
 
 ## Örnekler
 
-`examples/` klasöründe beş metin türü için (blog, e-posta, akademik paragraf, ürün açıklaması, LinkedIn gönderisi) tam önce/sonra çiftleri var. Her dosya hangi örüntülerin düzeltildiğini ve nelerin bilinçli olarak korunduğunu da gösterir. Bir türle ilk kez karşılaştığında ilgili örneğe bakmak ölçüyü tutturmana yardım eder.
+`examples/` klasöründe altı metin türü için (blog, e-posta, akademik paragraf, ürün açıklaması, LinkedIn gönderisi, teknik doküman) tam önce/sonra çiftleri var. Her dosya hangi örüntülerin düzeltildiğini ve nelerin bilinçli olarak korunduğunu da gösterir. Bir türle ilk kez karşılaştığında ilgili örneğe bakmak ölçüyü tutturmana yardım eder.

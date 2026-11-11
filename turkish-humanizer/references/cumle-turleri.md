@@ -49,8 +49,23 @@ Sütunlar: G = gündelik/blog/sosyal, İ = iş e-postası/ürün metni, A = akad
 - Önce: *Bu yöntem hızlıdır. Bu yöntem ucuzdur. Bu yöntem kolay uygulanır.*
 - Sonra: *Yöntem hem hızlı hem ucuz. Uygulaması da kolay.*
 
+**5. Yarık cümle → vurguyu yüklemin önüne alma**
+- Önce: *Satışları artıran şey ücretsiz kargo oldu.*
+- Sonra: *Satışları ücretsiz kargo artırdı.*
+- (Türkçede vurgu yüklemin hemen önündeki öğededir. "Ücretsiz kargo satışları artırdı." dendiğinde vurgu "satışları"na kayar. Hangisinin vurgulandığını kaynaktan okuyun.)
+
+**6. Ortak eki son yükleme bırakma**
+- Önce: *Sistem hızlıdır ve güvenilirdir.*
+- Sonra: *Sistem hızlı ve güvenilirdir.*
+
+**7. Adlaştırma zinciri → doğrudan çekim**
+- Önce: *Formun doldurulmasının ardından onay işleminin yapılması gerekmektedir.*
+- Sonra: *Form doldurulduktan sonra onaylanmalıdır.*
+
 ## Uyarılar
 
 - Çeşitlilik bir araçtır, hedef değildir. Her cümleyi farklı bir yapıya sokmak da yapay durur. İyi bir insan yazısında cümlelerin çoğu yine kurallı ve orta uzunluktadır, yalnızca aralarına doğal kırılmalar girer.
 - Devrik ve eksiltili cümle, metne "insan" süsü vermek için eklenen kozmetik bir araç olarak kullanılmamalı. Bağlam gerektirmiyorsa kullanmayın.
 - Birleştirme yaparken öznenin kim olduğunu ve zaman ilişkisini koruyun. "-ınca" bir zaman sırası, "-ıp" bir ardışıklık ya da eşzamanlılık, "-arak" bir tarz bildirir. Yanlış zarf-fiil anlamı kaydırır.
+- Sıfat-fiille gömerken bir adın önüne ikiden çok yan cümle yığmayın. Okur yükleme varana kadar hepsini aklında tutmak zorunda kalır. Fazlasını ayrı cümleye bölün (bkz. `ai-oruntuleri.md`, ASI-05).
+- Farklı özneli iki cümleyi "-ıp" ile birleştirmeyin. "-ıp"lı bölümün öznesi ana cümlenin öznesi sayılır: *"Ekip raporu hazırlayıp müdür onayladı."* yanlıştır, *"Ekip raporu hazırladı, müdür onayladı."* doğrudur.

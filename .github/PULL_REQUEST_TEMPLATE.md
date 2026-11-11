@@ -12,3 +12,4 @@
 - [ ] "Sonra" örnekleri anlamı, sayıları ve özel isimleri koruyor
 - [ ] Örnek cümleler özgün, gerçek kişi ya da şirket adı yok
 - [ ] TDK'dan birebir metin kopyalanmadı
+- [ ] Skill değiştiyse `dist/` yeniden üretildi, testler geçiyor
