@@ -18,6 +18,8 @@ jobs:
           python-version: "3.12"
       - name: Testler
         run: python3 -m unittest discover -s tests -v
+      - name: Paket tutarlılığı
+        run: python3 scripts/paket-dogrula.py
       - name: dist/ güncel mi?
         run: |
           python3 scripts/tek-dosya-olustur.py

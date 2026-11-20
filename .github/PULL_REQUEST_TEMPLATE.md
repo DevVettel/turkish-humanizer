@@ -8,8 +8,8 @@
 - [ ] SKILL.md davranış değişikliği (ilgili issue: #)
 
 ## Kontrol listesi
-- [ ] Yeni örüntü şablona uygun, altı alan da dolu ve dizine eklendi
+- [ ] Yeni örüntü şablona uygun, yedi alan da dolu, güç etiketi seçildi ve dizine eklendi
 - [ ] "Sonra" örnekleri anlamı, sayıları ve özel isimleri koruyor
 - [ ] Örnek cümleler özgün, gerçek kişi ya da şirket adı yok
 - [ ] TDK'dan birebir metin kopyalanmadı
-- [ ] Skill değiştiyse `dist/` yeniden üretildi, testler geçiyor
+- [ ] Skill değiştiyse `dist/` yeniden üretildi, testler ve `scripts/paket-dogrula.py` geçiyor, `CHANGELOG.md` güncellendi

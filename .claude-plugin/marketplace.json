@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "turkish-humanizer",
+  "owner": {
+    "name": "Enes Ozturk",
+    "url": "https://github.com/DevVettel"
+  },
+  "description": "turkish-humanizer'ı Claude Code eklentisi olarak kurun.",
+  "plugins": [
+    {
+      "name": "turkish-humanizer",
+      "source": "./",
+      "description": "Türkçe metinleri yapay zeka izlerinden arındırıp doğal bir insan yazısına dönüştürür.",
+      "license": "MIT",
+      "keywords": ["turkish", "türkçe", "writing", "editing", "humanize", "tdk"]
+    }
+  ]
+}

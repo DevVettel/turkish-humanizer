@@ -1,0 +1,11 @@
+{
+  "name": "turkish-humanizer",
+  "private": true,
+  "description": "Türkçe metinleri yapay zeka izlerinden arındırıp doğal bir insan yazısına dönüştürür.",
+  "license": "MIT",
+  "repository": "github:DevVettel/turkish-humanizer",
+  "keywords": ["pi-package"],
+  "pi": {
+    "skills": ["./turkish-humanizer"]
+  }
+}

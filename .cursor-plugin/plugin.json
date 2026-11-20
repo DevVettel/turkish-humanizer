@@ -1,0 +1,13 @@
+{
+  "name": "turkish-humanizer",
+  "description": "Türkçe metinleri yapay zeka izlerinden arındırıp doğal bir insan yazısına dönüştürür.",
+  "version": "1.1.0",
+  "author": {
+    "name": "Enes Ozturk"
+  },
+  "homepage": "https://github.com/DevVettel/turkish-humanizer",
+  "repository": "https://github.com/DevVettel/turkish-humanizer",
+  "license": "MIT",
+  "keywords": ["turkish", "türkçe", "writing", "editing", "humanize", "tdk"],
+  "skills": "./"
+}

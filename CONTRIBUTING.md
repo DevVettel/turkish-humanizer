@@ -19,9 +19,12 @@ turkish-humanizer, Türkçe yazan herkesin gözlemleriyle büyüyen bir proje. B
 
 1. `ai-oruntuleri.md` dosyasının sonundaki **şablonu** kopyalayın.
 2. Uygun kategoriyi seçin ve o kategorideki sıradaki numarayı verin:
-   `YAPI` yapı · `SOZ` klişe/sözcük · `CEV` çeviri kokusu · `NOK` noktalama · `BIC` biçim · `DOL` dolgu · `YAZ` yazım · `ASI` aşırı düzeltme
-3. Bloğu kategorisinin sonuna ekleyin ve dosyanın başındaki **Dizin**e bir satır ekleyin.
-4. Altı alanın hepsini doldurun. **Dokunma** alanı zorunludur. Her örüntünün meşru olduğu bir bağlam vardır, onu düşünmek skill'in aşırıya kaçmasını önler.
+   `YAPI` yapı · `SOZ` klişe/sözcük · `CEV` çeviri kokusu · `NOK` noktalama · `BIC` biçim · `DOL` sohbet ve model artığı · `OKU` okur ve bağlam · `YAZ` yazım · `ASI` aşırı düzeltme
+3. Bloğu kategorisinin sonuna ekleyin ve dosyanın başındaki **Dizin**e güç etiketiyle bir satır ekleyin.
+4. Yedi alanın hepsini doldurun. **Dokunma** alanı zorunludur. Her örüntünün meşru olduğu bir bağlam vardır, onu düşünmek skill'in aşırıya kaçmasını önler.
+5. **Güç** alanını seçin: `güçlü` (dikkatli bir yazar neredeyse hiç bilerek kullanmaz, tek görülüş yeter), `orta`, `tek başına zayıf` (insanlar da sık yazar, ancak başka izlerle birlikte düzeltilir) ya da `kural` (yazım ve noktalama hatası). Güçlü ya da zayıf bir örüntü eklediyseniz `SKILL.md`'deki **Güç** paragrafına da ekleyin.
+
+Yeni blok açmadan önce var olan bir bloğa katılıp katılamayacağına bakın. Aynı izin başka bir biçimi çoğu zaman var olan bloğun **Belirti** satırına aittir.
 
 ### İyi bir örüntü bloğunun özellikleri
 
@@ -80,12 +83,13 @@ python3 scripts/tek-dosya-olustur.py
 
 ## Pull request kontrol listesi
 
-- [ ] Yeni örüntü şablona uygun, altı alan da dolu
+- [ ] Yeni örüntü şablona uygun, yedi alan da dolu, güç etiketi seçildi
 - [ ] Dizine satır eklendi
 - [ ] "Sonra" örneği anlamı, sayıları ve özel isimleri koruyor
 - [ ] Örnekler özgün
 - [ ] Skill değiştiyse `dist/` yeniden üretildi
-- [ ] `python3 -m unittest discover -s tests` geçiyor
+- [ ] `python3 -m unittest discover -s tests` ve `python3 scripts/paket-dogrula.py` geçiyor
+- [ ] Davranış değiştiyse `CHANGELOG.md`'ye not düşüldü
 - [ ] Kendi yazdığınız açıklamalarda cümle içinde uzun çizgi (—) yok 🙂
 
 ## Test
@@ -97,6 +101,17 @@ Değişikliğinizin skill'in davranışını nasıl etkilediğini görmek isters
 ```bash
 python3 -m unittest discover -s tests
 ```
+
+## Kör karşılaştırma
+
+Skill'in gerçekten daha iyi metin üretip üretmediğini en iyi, hangisinin hangisi olduğunu bilmeyen okurlar söyler:
+
+```bash
+python3 scripts/kor-test-olustur.py                        # examples/ klasöründeki altı çift
+python3 scripts/kor-test-olustur.py --cift eski.md yeni.md # kendi metinleriniz
+```
+
+Script `kor-test/form.md` (okurlara verilecek) ve `kor-test/anahtar.md` (cevaplar) dosyalarını yazar. Formu birkaç kişiye ayrı ayrı okutun, sonucu "Kör karşılaştırma sonucu" şablonuyla bir issue'da paylaşın. Olumsuz sonuçlar da değerlidir.
 
 ## Davranış kuralları
 

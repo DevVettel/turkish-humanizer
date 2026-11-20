@@ -1,0 +1,4 @@
+interface:
+  display_name: "Turkish Humanizer"
+  short_description: "Türkçe metinlerdeki yapay zeka izlerini temizler"
+  default_prompt: "$turkish-humanizer ile bu Türkçe metni anlamını, sayılarını ve terimlerini değiştirmeden doğallaştır."

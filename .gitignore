@@ -3,3 +3,6 @@ turkish-humanizer-workspace/
 *.skill
 .DS_Store
 __pycache__/
+
+# kör test çıktıları (anahtar dosyası paylaşılmasın)
+kor-test/
