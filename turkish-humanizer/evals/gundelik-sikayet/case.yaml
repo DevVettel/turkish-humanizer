@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: gundelik-sikayet
+expected_outcome: |
+  Metin zaten insan yazısı: küçük harf, kesik vurgu (Rezalet. Bir. Firma.) ve öfke türün parçası. Skill metni değiştirmeden ya da yalnızca çok küçük düzeltmelerle geri verir. Öfkeyi yumuşatmaz, resmîleştirmez, nezaket kalıbı eklemez. Sayılar ve iade talebi korunur.

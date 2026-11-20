@@ -107,7 +107,12 @@ SOZLUK_KURALLARI = [
      r"(?:^|(?<=[.!?…]\s))peki[, ][^.!?\n]{0,90}\?|\bsonuç mu\?|\bcevap mı\?|\bişin sırrı mı\?", False),
     ("YAPI-08", "Özet cümlesiyle kapanış",
      r"\bbu da (?:açıkça )?göster(?:iyor|mektedir|ir) ki\b|\bkısacası\b|\bözetle(?:mek gerekirse)?\b"
-     r"|\btoparlamak gerekirse\b|\bson tahlilde\b", False),
+     r"|\btoparlamak gerekirse\b|\bson tahlilde\b|\bbunu bir kez daha okuyun\b|\büzerinde düşünmeye değer\b"
+     r"|(?:^|(?<=[.!?…]\s))ne [^.!?\n]{1,30}\.\s+ne [^.!?\n]{1,30}\.", False),
+    ("YAPI-10", "Kimseyle tartışma",
+     r"\byanlış anlaşılmasın\b|\bşunu (?:söylemiyorum|demiyorum)\b|\b(?:demek|söylemek) istemiyorum\b"
+     r"|\bkimileri [^.!?\n]{1,80}?diyebilir\b|\bakla ilk gelen (?:çözüm|yöntem|yol|seçenek)\w*"
+     r"|\bdiyenler (?:çıkacaktır|olabilir|çıkabilir)\b", False),
     ("SOZ-01", "\"Önemli bir rol oynamaktadır\" ailesi",
      r"\b(?:önemli|kritik|büyük|kilit|hayati|merkezi|belirleyici) (?:bir )?rol (?:oyna|üstlen)\w*"
      r"|\b(?:büyük|hayati|kritik) (?:bir )?önem (?:taşı|arz et)\w*"
@@ -128,6 +133,12 @@ SOZLUK_KURALLARI = [
      r"\byeni bir boyut kazan\w*|\bkapı(?:lar)?ını arala\w*|\bdönüşüm yolculu\w+|\byolculuğa çık\w*"
      r"|\byeni bir sayfa aç\w*|\bufuk açıcı\b|\bçıtayı yüksel\w*|\bpotansiyelini (?:açığa|ortaya) çıkar\w*"
      r"|\bbir (?:üst|sonraki) seviyeye taşı\w*|\bgeniş (?:bir )?yelpaze\w*", False),
+    ("SOZ-08", "Derin görünen vecize",
+     r"\bmeselenin özü\w*|\basıl soru(?:,| şu)\b|\basıl mesele\b|\bişin özü(?:nde)?\b|\byeni petrol\w*", False),
+    ("SOZ-09", "Kaynaksız otorite",
+     r"\buzmanlara göre\b|\buzmanlar\w*,? [^.!?\n]{0,60}?hemfikir\w*|\baraştırmalar(?:ın)? göster(?:iyor|mektedir|di) ki\b"
+     r"|\b(?:pek çok|birçok|sayısız) (?:araştırma|çalışma)\w* [^.!?\n]{0,40}?(?:ortaya koy|göster)\w*"
+     r"|\bbilim insanları uyarıyor\b", True),
     ("SOZ-07", "Adlaştırma zinciri ve boş yardımcı fiil",
      r"\w+m[ae]s[ıi]n[ıi]n sağlanması\b|\w+m[ae]s[ıi] (?:gerekmektedir|sağlanmalıdır|gerçekleştirilmiştir)"
      r"|\b(?:gerçekleştirilm|icra edilm)\w*|\bgerçekleştirm\w*", False),
@@ -144,10 +155,19 @@ SOZLUK_KURALLARI = [
     ("DOL-01", "Açılış dolguları",
      r"\bharika bir soru\b|\bçok güzel bir soru\b|\bbu e-posta sizi iyi bul\w*"
      r"|\bbu (?:yazıda|makalede|rehberde)\b[^.!?\n]{0,80}?\b(?:ele alacağız|inceleyeceğiz|göz atacağız|keşfedeceğiz)"
-     r"|^(?:elbette|tabii ki|kesinlikle)[!,]", False),
+     r"|^(?:elbette|tabii ki|kesinlikle)[!,]|\bgelin (?:birlikte )?(?:bakalım|inceleyelim|göz atalım)\b"
+     r"|\bhadi başlayalım\b|\blafı uzatmadan\b|\bişin aslı şu\b|\baçık konuşalım\b"
+     r"|\bbilmeniz gerekenler şunlar\b|\bişte işin püf noktası\b", False),
     ("DOL-02", "Kapanış dolguları",
      r"\bumarım (?:bu )?[^.!?\n]{0,40}?yardımcı ol\w*|\bçekinmeyin\b|\bçekinmeden sor\w*"
      r"|\bbaşka (?:bir )?soru(?:nuz|n) olursa\b|\bunutmayın[, ]", False),
+    ("DOL-03", "Model notu: bilgi sınırı ve tahmin",
+     r"\bbilgi kesim tarih\w*|\beğitim verilerim\w*|\berişebildiğim (?:kaynak|bilgi)\w*|\bmevcut bilgilere göre\b"
+     r"|\bkamuya açık [^.!?\n]{0,40}?bilgi bulun(?:ma|mu)\w*|\bsınırlı bilgi bulunmaktadır\b", False),
+    ("BIC-04", "Metnin kendini anlatması",
+     r"\başağıdaki tablo\w* [^.!?\n]{0,60}?(?:karşılaştırmaktadır|göstermektedir|özetlemektedir|sunmaktadır)"
+     r"|\bbu bölüm(?:de)? [^.!?\n]{0,60}?(?:ele alınmaktadır|düzenlenmiştir|karşılaştırılmaktadır)"
+     r"|\bderlenmiş olup\b|\bdoğrulanamayan bilgiler işaretlenmiştir\b", True),
     ("YAZ-01", "Bağlaç de/da", r"\b(?:bende|sende|bizde|sizde) (?:gel|gid|bil|iste|düşün|katıl|yap)\w*", False),
     ("YAZ-02", "ki", r"\bdemekki\b|\bhalbuki\b|\b(?:yarın|bugün|dün|masada|evde|burada|orada) ki\b", False),
     ("YAZ-06", "Sık yazım hataları",
@@ -165,6 +185,7 @@ BU_ACILISI = re.compile(r"^bu (?:durum\w*|da|sayede|noktada|nedenle|yüzden)\b")
 UCLU = re.compile(r"\b[^\W\d_]+, [^\W\d_]+ ve [^\W\d_]+\b")
 EMOJI = re.compile("[\U0001F300-\U0001FAFF☀-➿⭐⬆✅]")
 TEKEL = {"ve": 3, "ama": 2, "çünkü": 2}
+LISTE_SATIRI = re.compile(r"^\s*(?:[-*+•]|\d+[.)])\s+", re.M)
 
 
 def _satir(metin, konum):
@@ -256,6 +277,42 @@ def tara(metin, register="gundelik"):
         if p_kucuk.count("tarafından") >= 2:
             rapor.ekle("CEV-03", "\"tarafından\" ve \"için\" yığılması", satir,
                        f"Bu paragrafta \"tarafından\" ×{p_kucuk.count('tarafından')}", olagan=resmi)
+
+    # YAPI-11: Liste içermeyen paragraflarda aynı sözcükle başlayan cümleler.
+    konum = 0
+    for paragraf in re.split(r"(\n\s*\n)", temiz):
+        bas, konum = konum, konum + len(paragraf)
+        if not re.search(r"\w", paragraf) or LISTE_SATIRI.search(paragraf) or BASLIK.search(paragraf):
+            continue
+        ilkler = Counter()
+        for c in cumleler(duzyazi(paragraf)):
+            ilk = re.match(r"[^\W\d_]+", kucult(c))
+            if ilk and ilk.group(0) not in ("bu", "ve"):
+                ilkler[ilk.group(0)] += 1
+        tekrar = [f"\"{s}\" ×{n}" for s, n in ilkler.items() if n >= 3]
+        if tekrar:
+            rapor.ekle("YAPI-11", "Aynı sözcükle başlayan cümleler",
+                       _satir(temiz, bas + len(paragraf) - len(paragraf.lstrip())),
+                       "Bu paragrafta cümle başı: " + ", ".join(tekrar))
+
+    # BIC-03: Başlığın altındaki ilk cümle başlığı tekrar ediyor.
+    for e in BASLIK.finditer(temiz):
+        baslik = re.findall(r"[^\W\d_]+", kucult(e.group(0)))
+        sonrasi = temiz[e.end():].lstrip()
+        if not baslik or not sonrasi or sonrasi.startswith("#"):
+            continue
+        ilk_paragraf = re.split(r"\n\s*\n|\n(?=\s{0,3}#)", sonrasi, maxsplit=1)[0]
+        cumle_listesi = cumleler(duzyazi(ilk_paragraf).replace("\n", " "))
+        if not cumle_listesi:
+            continue
+        ilk = cumle_listesi[0]
+        kok = baslik[0][:max(4, len(baslik[0]) - 2)]
+        devam = len(cumle_listesi) > 1 or len(sonrasi.strip()) > len(ilk_paragraf.strip())
+        # "Güvenlik, her sistemin en önemli parçasıdır." gibi: başlık sözcüğü, virgül, -dır'lı yargı.
+        tanim = re.match(re.escape(kok) + r"[^\W\d_]*,\s.*(?:d|t)[ıiuü]r\.$", kucult(ilk))
+        if devam and tanim and sozcuk_sayisi(ilk) <= 12:
+            rapor.ekle("BIC-03", "Başlığı ilk cümlede tekrarlama", _satir(temiz, e.start()),
+                       e.group(0).strip() + " → " + ilk)
 
     uclular = list(UCLU.finditer(kucult(duz)))
     if len(uclular) >= 2:

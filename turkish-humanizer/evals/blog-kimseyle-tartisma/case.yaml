@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: blog-kimseyle-tartisma
+expected_outcome: |
+  Blog registerında, yazarın birinci tekil sesini koruyan doğal bir metin. Kimseyle tartışma (Yanlış anlaşılmasın, Kimileri ... düşünebilir), vecize (Meselenin özü, Mesele mekân değil. Mesele odak.), sahneli giriş (Lafı uzatmadan), kesik parça zinciri ve duraklama komutu (Bunu bir kez daha okuyun) kalkar. Sayılar (22 iş günü, 15'i, haftada bir gün) korunur. 'Uzmanlara göre' atfı ve 'artırabilir' temkini silinmez.

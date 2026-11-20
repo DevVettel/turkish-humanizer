@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: yanit-mesaji
+expected_outcome: |
+  Yanıt, Murat'ın sorusunun cevabıyla (bugün 17.00'den sonra deploy edilebilir) açılır. Murat'ın zaten bildiği arka plan (staging'de migration hatası alınıyor) kısalır ya da kalkar. Harika bir soru ve Umarım yardımcı olmuştur kalkar. 42 tekrarlı kayıt, üç deneme, 17.00, users, email, unique terimleri ve 'edebiliriz' kesinliği korunur. Sen hitabı ve gündelik iş yazışması registerı kalır.

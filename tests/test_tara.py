@@ -60,10 +60,48 @@ class Kurallar(unittest.TestCase):
             "DOL-01": "Umarım bu e-posta sizi iyi bulur.",
             "DOL-02": "Sorunuz olursa sormaktan çekinmeyin.",
             "YAZ-06": "Herşey yolunda.",
+            "YAPI-10": "Yanlış anlaşılmasın, toplantılara karşı değilim.",
+            "SOZ-08": "Meselenin özünde kurum kültürü yatıyor.",
+            "SOZ-09": "Uzmanlara göre ekran süresi dikkati etkiliyor.",
+            "DOL-03": "Bilgi kesim tarihim itibarıyla şirket hakkında bilgi yok.",
+            "BIC-04": "Aşağıdaki tablo üç paketi karşılaştırmaktadır.",
         }
         for kimlik, metin in ornekler.items():
             with self.subTest(kimlik=kimlik):
                 self.assertIn(kimlik, kimlikler(metin))
+
+    def test_sahneli_giris(self):
+        for metin in ("Lafı uzatmadan konuya girelim.", "İşin aslı şu: önbellek üç katmanlı.",
+                      "Gelin birlikte bakalım."):
+            with self.subTest(metin=metin):
+                self.assertIn("DOL-01", kimlikler(metin))
+
+    def test_kesik_parca_zinciri(self):
+        self.assertIn("YAPI-08", kimlikler("Yeni sistem geldi. Ne bekleme kaldı. Ne kuyruk. Ne de evrak."))
+
+    def test_ne_sorusu_kesik_parca_sayilmaz(self):
+        self.assertNotIn("YAPI-08", kimlikler("Ne zaman geliyorsun? Ne getireceksin?"))
+
+    def test_ayni_sozcukle_baslayan_cumleler(self):
+        metin = ("Ekibimiz depoyu mart ayında açtı. Ekibimiz teslim süresini kısalttı. "
+                 "Ekibimiz şimdi iade sürecini yeniliyor.")
+        self.assertIn("YAPI-11", kimlikler(metin))
+
+    def test_liste_maddeleri_ayni_baslangic_sayilmaz(self):
+        metin = "- Kullanıcı giriş yapar.\n- Kullanıcı formu doldurur.\n- Kullanıcı gönderir."
+        self.assertNotIn("YAPI-11", kimlikler(metin))
+
+    def test_basligi_tekrarlayan_ilk_cumle(self):
+        metin = "## Güvenlik\n\nGüvenlik, her sistemin en önemli parçasıdır. Veriler şifrelenir.\n"
+        self.assertIn("BIC-03", kimlikler(metin))
+
+    def test_baslik_sozcuguyle_baslayan_bilgi_cumlesi_sayilmaz(self):
+        metin = "## ChatGPT\n\nChatGPT, skill dosyalarını doğrudan yükleyemez. Talimat kutusunu kullanın.\n"
+        self.assertNotIn("BIC-03", kimlikler(metin))
+
+    def test_kaynakli_atif_akademikte_olagan(self):
+        metin = "Yapılan pek çok çalışma bu etkiyi ortaya koymuştur (Kaya, 2019)."
+        self.assertIn("SOZ-09", kimlikler(metin, "akademik", olagan=True))
 
     def test_buyuk_harfle_baslayan_kalip_da_yakalanir(self):
         self.assertIn("SOZ-02", kimlikler("İşler yolunda. Bu Bağlamda yeni bir plan yaptık."))
@@ -155,7 +193,7 @@ class Katalog(unittest.TestCase):
     def test_kural_kimlikleri_katalogda_var(self):
         katalog = (KOK / "turkish-humanizer" / "references" / "ai-oruntuleri.md").read_text(encoding="utf-8")
         kullanilan = {k[0] for k in tara.SOZLUK_KURALLARI} | {k[0] for k in tara.BICIM_KURALLARI}
-        kullanilan |= {"YAPI-01", "YAPI-02", "YAPI-03", "YAPI-05", "SOZ-05", "CEV-03", "NOK-04"}
+        kullanilan |= {"YAPI-01", "YAPI-02", "YAPI-03", "YAPI-05", "YAPI-11", "SOZ-05", "CEV-03", "NOK-04", "BIC-03"}
         for kimlik in sorted(kullanilan):
             with self.subTest(kimlik=kimlik):
                 self.assertIn(f"### {kimlik} ·", katalog)
@@ -167,6 +205,20 @@ class Katalog(unittest.TestCase):
             with self.subTest(kimlik=kimlik):
                 self.assertIn(f"- [{kimlik} ", katalog)
                 self.assertIn(f'<a id="{kimlik.lower()}"></a>', katalog)
+
+
+    def test_sonra_ornekleri_temiz(self):
+        # Katalogdaki düzeltilmiş örnekler, tarayıcının yakaladığı hiçbir izi taşımamalı.
+        import re
+        katalog = (KOK / "turkish-humanizer" / "references" / "ai-oruntuleri.md").read_text(encoding="utf-8")
+        for blok in re.split(r"(?m)^(?=<a id=)", katalog):
+            baslik = re.search(r"^### ([A-Z]+-\d\d)", blok, re.M)
+            if not baslik:
+                continue
+            for alan, metin in re.findall(r"^- \*\*(Sonra[^:]*|Yerinde düzeltme):\*\* \*(.+?)\*", blok, re.M):
+                with self.subTest(kimlik=baslik.group(1), alan=alan):
+                    # YAPI-01 tek cümlelik örneklerde anlamsızdır.
+                    self.assertEqual(kimlikler(metin) - {"YAPI-01"}, set())
 
 
 if __name__ == "__main__":
